@@ -1,14 +1,14 @@
 FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 8001
 EXPOSE 443
 
 FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
-COPY ["GetWeather/GetWeather.csproj", "GetWeather/"]
-RUN dotnet restore "GetWeather/GetWeather.csproj"
+COPY ["./GetWeather.csproj", "./"]
+RUN dotnet restore "./GetWeather.csproj"
 COPY . .
-WORKDIR "/src/GetWeather"
+WORKDIR "/src/."
 RUN dotnet build "GetWeather.csproj" -c Release -o /app
 
 FROM build AS publish
